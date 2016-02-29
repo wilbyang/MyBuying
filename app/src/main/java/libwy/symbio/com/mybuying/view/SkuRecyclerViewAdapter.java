@@ -1,6 +1,8 @@
 package libwy.symbio.com.mybuying.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
+import com.nostra13.universalimageloader.core.display.BitmapDisplayer;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import libwy.symbio.com.mybuying.R;
 import libwy.symbio.com.mybuying.model.Sku;
+import libwy.symbio.com.mybuying.view.utils.GradientOverImageDrawable;
 
 import java.util.List;
 
@@ -42,7 +50,18 @@ public class SkuRecyclerViewAdapter extends RecyclerView.Adapter<SkuRecyclerView
         holder.sku = skus.get(position);
         holder.nameTextView.setText(holder.sku.getName());
         holder.descriptionTextView.setText(holder.sku.getDescription());
-        Glide.with((Context)mListener).load(holder.sku.getPicture()).into(holder.picture);
+        //Glide.with((Context)mListener).load(holder.sku.getPicture()).into(holder.picture);
+        DisplayImageOptions dio = new DisplayImageOptions.Builder().displayer(new BitmapDisplayer() {
+            @Override
+            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+                int gradientStartColor = Color.argb(0, 0, 0, 0);
+                int gradientEndColor = Color.argb(255, 0, 0, 0);
+                GradientOverImageDrawable gradientDrawable = new GradientOverImageDrawable(((Context)mListener).getResources(), bitmap);
+                gradientDrawable.setGradientColors(gradientStartColor, gradientEndColor);
+                imageAware.setImageDrawable(gradientDrawable);
+            }
+        }).build();
+        ImageLoader.getInstance().displayImage(holder.sku.getPicture(), holder.picture, dio);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +71,14 @@ public class SkuRecyclerViewAdapter extends RecyclerView.Adapter<SkuRecyclerView
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.sku);
                 }
+            }
+        });
+
+
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
             }
         });
     }

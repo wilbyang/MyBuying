@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Inject
     OkHttpClient okHttpClient;
-    
+
     private UserLoginTask mAuthTask = null;
 
     // UI references.

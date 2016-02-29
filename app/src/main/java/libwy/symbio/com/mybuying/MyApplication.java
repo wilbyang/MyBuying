@@ -3,6 +3,8 @@ package libwy.symbio.com.mybuying;
 import android.app.Application;
 
 import com.facebook.stetho.Stetho;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import libwy.symbio.com.mybuying.di.components.DaggerSkuComponent;
 import libwy.symbio.com.mybuying.di.components.SkuComponent;
@@ -23,6 +25,8 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
         Stetho.initializeWithDefaults(this);
 
         skuComponent = DaggerSkuComponent.builder()
