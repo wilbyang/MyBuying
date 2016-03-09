@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">My Buying</string>
+    <string name="quantityHint">enter the quantity</string>
+    <string name="noteHint">ordering note</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -19,4 +21,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="signin">Order</string>
+    <string name="cancel">Cancel</string>
+    <string name="gcm_defaultSenderId" />
+    <string name="title_activity_sku_detail">SkuDetailActivity</string>
 </resources>

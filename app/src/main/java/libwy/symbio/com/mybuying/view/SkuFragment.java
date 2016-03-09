@@ -83,6 +83,7 @@ public class SkuFragment extends Fragment {
             Context context = view.getContext();
             final RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.addItemDecoration(new EqualSpaceItemDecoration(20));
 /*
 
 

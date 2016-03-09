@@ -50,6 +50,7 @@ public class SkuRecyclerViewAdapter extends RecyclerView.Adapter<SkuRecyclerView
         holder.sku = skus.get(position);
         holder.nameTextView.setText(holder.sku.getName());
         holder.descriptionTextView.setText(holder.sku.getDescription());
+        holder.priceTextView.setText("Price:" + String.valueOf(holder.sku.getPrice()));
         //Glide.with((Context)mListener).load(holder.sku.getPicture()).into(holder.picture);
         DisplayImageOptions dio = new DisplayImageOptions.Builder().displayer(new BitmapDisplayer() {
             @Override
@@ -93,6 +94,7 @@ public class SkuRecyclerViewAdapter extends RecyclerView.Adapter<SkuRecyclerView
         public final TextView nameTextView;
         public final TextView descriptionTextView;
         public final ImageView picture;
+        private final TextView priceTextView;
         public Sku sku;
 
         public ViewHolder(View view) {
@@ -100,6 +102,7 @@ public class SkuRecyclerViewAdapter extends RecyclerView.Adapter<SkuRecyclerView
             mView = view;
             nameTextView = (TextView) view.findViewById(R.id.name);
             descriptionTextView = (TextView) view.findViewById(R.id.description);
+            priceTextView = (TextView) view.findViewById(R.id.price);
             picture = (ImageView) view.findViewById(R.id.picture);
         }
 

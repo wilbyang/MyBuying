@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,10 +22,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import libwy.symbio.com.mybuying.model.Sku;
+import libwy.symbio.com.mybuying.view.MakeOrderDialogFragment;
 import libwy.symbio.com.mybuying.view.SkuFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SkuFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SkuFragment.OnListFragmentInteractionListener, MakeOrderDialogFragment.MakeOrderDialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -130,6 +134,38 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(Sku item) {
-        Log.i("xxhh", "clicked");
+
+
+
+        Intent intent = new Intent(this, SkuDetailActivity.class);
+        intent.putExtra("sku", item);
+        startActivity(intent);
+
+        /*FragmentManager fm = getSupportFragmentManager();
+        MakeOrderDialogFragment fragment = new MakeOrderDialogFragment();
+        fragment.show(fm, "Sample Fragment");*/
+
+        /*
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        MakeOrderDialogFragment fragment = new MakeOrderDialogFragment();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // For a little polish, specify a transition animation
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        // To make it fullscreen, use the 'content' root view as the container
+        // for the fragment, which is always the root view for the activity
+        transaction.add(android.R.id.content, fragment)
+                .addToBackStack(null).commit();
+                */
+
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
     }
 }

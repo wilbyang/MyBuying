@@ -17,38 +17,58 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout">
-
-            <ImageView
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/picture"
-                android:layout_alignParentBottom="true"
-                android:adjustViewBounds="true" />
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white"
-                android:gravity="center_horizontal"
-                android:layout_alignParentBottom="true"
-                android:id="@+id/name" />
+                android:id="@+id/relativeLayout">
 
 
-        </RelativeLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/picture"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="#FF000000"/>
 
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/description" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/name" />
 
-            </LinearLayout>
+
+            </RelativeLayout>
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/price" />
+
+
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/description" />
+
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="#ff909090"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
 
 
 
