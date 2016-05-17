@@ -9,10 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import libwy.symbio.com.mybuying.model.Sku;
 
 public class SkuDetailActivity extends AppCompatActivity {
+
+    private ImageView skuImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +39,17 @@ public class SkuDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+
+        skuImg = (ImageView) findViewById(R.id.sku_image);
+        Sku sku = getIntent().getExtras().getParcelable("sku");
+        setTitle(sku.getName());
+        Glide.with(this).load(sku.getPicture()).into(skuImg);
+
         if (savedInstanceState == null) {
             FragmentManager fm = getSupportFragmentManager();
             SkuDetailActivityFragment fragment = new SkuDetailActivityFragment();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("sku", getIntent().getExtras().getParcelable("sku"));
+            bundle.putParcelable("sku", sku);
             fragment.setArguments(bundle);
             fm.beginTransaction().add(R.id.item_detail_container, fragment).commit();
         }

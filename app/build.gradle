@@ -43,4 +43,5 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'io.branch.sdk.android:library:1.+'
 }
