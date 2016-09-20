@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity
             // Setting ViewPager for each Tabs
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager);
+            tabs.setupWithViewPager(viewPager);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -199,9 +200,11 @@ public class MainActivity extends AppCompatActivity
     }
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(SkuFragment.newInstance("Products"), "List");
-        adapter.addFragment(SkuFragment.newInstance("Products"), "Tile");
-        adapter.addFragment(SkuFragment.newInstance("Products"), "Card");
+        adapter.addFragment(SkuFragment.newInstance("Products"), "奶粉辅食");
+        adapter.addFragment(SkuFragment.newInstance("Products"), "儿童营养");
+        adapter.addFragment(SkuFragment.newInstance("Products"), "养生保健");
+        adapter.addFragment(SkuFragment.newInstance("Products"), "丽人美妆");
+        adapter.addFragment(SkuFragment.newInstance("Products"), "宝宝日用");
         viewPager.setAdapter(adapter);
     }
 
