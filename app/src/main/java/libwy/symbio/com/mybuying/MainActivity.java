@@ -53,11 +53,7 @@ public class MainActivity extends AppCompatActivity
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-            tabs.addTab(tabs.newTab().setText("奶粉辅食"));
-            tabs.addTab(tabs.newTab().setText("儿童营养"));
-            tabs.addTab(tabs.newTab().setText("养生保健"));
-            tabs.addTab(tabs.newTab().setText("丽人美妆"));
-            tabs.addTab(tabs.newTab().setText("宝宝日用"));
+
             // Setting ViewPager for each Tabs
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager);
@@ -82,9 +78,6 @@ public class MainActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
 
 
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, SkuFragment.newInstance("Products"));
-            ft.commit();
         }
     }
 
