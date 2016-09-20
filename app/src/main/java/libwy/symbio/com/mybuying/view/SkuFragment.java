@@ -3,7 +3,7 @@ package libwy.symbio.com.mybuying.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +31,8 @@ import retrofit.Retrofit;
  */
 public class SkuFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_TITLE = "title";
-    // TODO: Customize parameters
-    private String title = "";
+    private static final String ARG_CATEGORY = "category";
+    private String category = "";
     private OnListFragmentInteractionListener mListener;
 
 
@@ -52,13 +50,11 @@ public class SkuFragment extends Fragment {
 
     }
 
-
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static SkuFragment newInstance(String title) {
+    public static SkuFragment newInstance(String category) {
         SkuFragment fragment = new SkuFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_TITLE, title);
+        args.putString(ARG_CATEGORY, category);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,7 +64,7 @@ public class SkuFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            title = getArguments().getString(ARG_TITLE);
+            category = getArguments().getString(ARG_CATEGORY);
         }
         MyApplication myApplication = (MyApplication)(getActivity().getApplication());
         myApplication.getSkuComponent().inject(this);
@@ -83,8 +79,9 @@ public class SkuFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             final RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.addItemDecoration(new EqualSpaceItemDecoration(20));
+            int tilePadding = getResources().getDimensionPixelSize(R.dimen.tile_padding);
+            recyclerView.setPadding(tilePadding, tilePadding, tilePadding, tilePadding);
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 /*
 
 
@@ -95,7 +92,7 @@ public class SkuFragment extends Fragment {
             adapter = new SkuRecyclerViewAdapter(skus, mListener);
             recyclerView.setAdapter(adapter);
 
-            Call<List<Sku>> call = skuApiInterface.getProducts();
+            Call<List<Sku>> call = skuApiInterface.getProducts(category);
             call.enqueue(new Callback<List<Sku>>() {
                 @Override
                 public void onResponse(Response<List<Sku>> response, Retrofit retrofit) {

@@ -19,6 +19,7 @@ import libwy.symbio.com.mybuying.model.Sku;
 
 public class SkuDetailActivity extends AppCompatActivity {
 
+    public static final String EXTRA_POSITION = "position";
     private ImageView skuImg;
 
     @Override
@@ -76,7 +77,7 @@ public class SkuDetailActivity extends AppCompatActivity {
         skuImg = (ImageView) findViewById(R.id.sku_image);
         Sku sku = getIntent().getExtras().getParcelable("sku");
         setTitle(sku.getName());
-        Glide.with(this).load(sku.getPicture()).into(skuImg);
+        Glide.with(this).load("https://www.libwy.com/" + sku.getImage()).into(skuImg);
 
         if (savedInstanceState == null) {
             FragmentManager fm = getSupportFragmentManager();

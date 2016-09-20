@@ -193,11 +193,11 @@ public class MainActivity extends AppCompatActivity
     }
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(SkuFragment.newInstance("Products"), "奶粉辅食");
-        adapter.addFragment(SkuFragment.newInstance("Products"), "儿童营养");
-        adapter.addFragment(SkuFragment.newInstance("Products"), "养生保健");
-        adapter.addFragment(SkuFragment.newInstance("Products"), "丽人美妆");
-        adapter.addFragment(SkuFragment.newInstance("Products"), "宝宝日用");
+        adapter.addFragment(SkuFragment.newInstance("milk_powder_food_supplements"), "奶粉辅食");
+        adapter.addFragment(SkuFragment.newInstance("kids_nutrition"), "儿童营养");
+        adapter.addFragment(SkuFragment.newInstance("adult_health"), "养生保健");
+        adapter.addFragment(SkuFragment.newInstance("beauty"), "丽人美妆");
+        adapter.addFragment(SkuFragment.newInstance("kids_daily"), "宝宝日用");
         viewPager.setAdapter(adapter);
     }
 

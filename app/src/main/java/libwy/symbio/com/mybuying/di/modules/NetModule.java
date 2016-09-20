@@ -63,7 +63,7 @@ public class NetModule {
     Retrofit provideRetrofitSKU(Gson gson, OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("http://beta.json-generator.com/api/json/get/")
+                .baseUrl("https://www.libwy.com")
                 .client(okHttpClient)
                 .build();
         return retrofit;

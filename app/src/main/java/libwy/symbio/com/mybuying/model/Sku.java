@@ -10,11 +10,36 @@ import com.google.common.base.Objects;
  */
 
 public class Sku implements Parcelable{
-    private String name, description, picture;
-    private boolean available;
+    private String title, name, image, largeImage, description;
     private double price;
 
     public Sku() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sku sku = (Sku) o;
+        return Double.compare(sku.price, price) == 0 &&
+              Objects.equal(title, sku.title) &&
+              Objects.equal(name, sku.name) &&
+              Objects.equal(image, sku.image) &&
+              Objects.equal(largeImage, sku.largeImage) &&
+              Objects.equal(description, sku.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(title, name, image, largeImage, description, price);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {
@@ -25,28 +50,28 @@ public class Sku implements Parcelable{
         this.name = name;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getLargeImage() {
+        return largeImage;
+    }
+
+    public void setLargeImage(String largeImage) {
+        this.largeImage = largeImage;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public double getPrice() {
@@ -58,49 +83,36 @@ public class Sku implements Parcelable{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Sku sku = (Sku) o;
-        return Objects.equal(available, sku.available) &&
-                Objects.equal(price, sku.price) &&
-                Objects.equal(name, sku.name) &&
-                Objects.equal(description, sku.description) &&
-                Objects.equal(picture, sku.picture);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(name, description, picture, available, price);
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
         dest.writeString(this.name);
+        dest.writeString(this.image);
+        dest.writeString(this.largeImage);
         dest.writeString(this.description);
-        dest.writeString(this.picture);
-        dest.writeByte(available ? (byte) 1 : (byte) 0);
         dest.writeDouble(this.price);
     }
 
     protected Sku(Parcel in) {
+        this.title = in.readString();
         this.name = in.readString();
+        this.image = in.readString();
+        this.largeImage = in.readString();
         this.description = in.readString();
-        this.picture = in.readString();
-        this.available = in.readByte() != 0;
         this.price = in.readDouble();
     }
 
     public static final Creator<Sku> CREATOR = new Creator<Sku>() {
+        @Override
         public Sku createFromParcel(Parcel source) {
             return new Sku(source);
         }
 
+        @Override
         public Sku[] newArray(int size) {
             return new Sku[size];
         }
