@@ -3,10 +3,8 @@ package libwy.symbio.com.mybuying.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +40,7 @@ public class SkuFragment extends Fragment {
 
     protected List<Sku> skus = new ArrayList<>();
     SkuRecyclerViewAdapter adapter;
+
     @Inject
     SkuApiInterface skuApiInterface;
 
@@ -50,7 +49,9 @@ public class SkuFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public SkuFragment() {
+
     }
+
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")

@@ -3,36 +3,37 @@ package libwy.symbio.com.mybuying;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.ChangeImageTransform;
-import android.transition.Fade;
-import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import libwy.symbio.com.mybuying.model.Sku;
 import libwy.symbio.com.mybuying.view.MakeOrderDialogFragment;
 import libwy.symbio.com.mybuying.view.SkuFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SkuFragment.OnListFragmentInteractionListener, MakeOrderDialogFragment.MakeOrderDialogListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+      SkuFragment.OnListFragmentInteractionListener,
+      MakeOrderDialogFragment.MakeOrderDialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,15 @@ public class MainActivity extends AppCompatActivity
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+            tabs.addTab(tabs.newTab().setText("奶粉辅食"));
+            tabs.addTab(tabs.newTab().setText("儿童营养"));
+            tabs.addTab(tabs.newTab().setText("养生保健"));
+            tabs.addTab(tabs.newTab().setText("丽人美妆"));
+            tabs.addTab(tabs.newTab().setText("宝宝日用"));
+            // Setting ViewPager for each Tabs
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -137,32 +147,44 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     @Override
     public void onListFragmentInteraction(Sku item) {
-
-
 
         Intent intent = new Intent(this, SkuDetailActivity.class);
         intent.putExtra("sku", item);
 
         startActivity(intent);
-
-        /*FragmentManager fm = getSupportFragmentManager();
-        MakeOrderDialogFragment fragment = new MakeOrderDialogFragment();
-        fragment.show(fm, "Sample Fragment");*/
-
         /*
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        MakeOrderDialogFragment fragment = new MakeOrderDialogFragment();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // For a little polish, specify a transition animation
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        // To make it fullscreen, use the 'content' root view as the container
-        // for the fragment, which is always the root view for the activity
-        transaction.add(android.R.id.content, fragment)
-                .addToBackStack(null).commit();
-                */
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+              MainActivity.this);
+        LayoutInflater li = this.getLayoutInflater();
+        View promptsView = li.inflate(R.layout.alert_dialog, null);
+        alertDialogBuilder.setView(promptsView);
+        alertDialogBuilder.setTitle("Title Dialog");
+        alertDialogBuilder
+              .setMessage("Message Dialog")
+              .setCancelable(true)
+              .setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            // Handle Positive Button
+
+                        }
+                    })
+              .setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            // Handle Negative Button
+                            dialog.cancel();
+                        }
+                    });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        */
+
 
     }
 
@@ -174,5 +196,41 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
 
+    }
+    private void setupViewPager(ViewPager viewPager) {
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        adapter.addFragment(SkuFragment.newInstance("Products"), "List");
+        adapter.addFragment(SkuFragment.newInstance("Products"), "Tile");
+        adapter.addFragment(SkuFragment.newInstance("Products"), "Card");
+        viewPager.setAdapter(adapter);
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public Adapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }

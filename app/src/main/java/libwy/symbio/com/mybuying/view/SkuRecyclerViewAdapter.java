@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -43,6 +44,7 @@ public class SkuRecyclerViewAdapter extends RecyclerView.Adapter<SkuRecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_sku, parent, false);
         return new ViewHolder(view);
+
     }
 
     @Override
@@ -71,6 +73,7 @@ public class SkuRecyclerViewAdapter extends RecyclerView.Adapter<SkuRecyclerView
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.sku);
+
                 }
             }
         });

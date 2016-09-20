@@ -1,17 +1,12 @@
 package libwy.symbio.com.mybuying.view;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 
 import libwy.symbio.com.mybuying.R;
@@ -62,7 +57,8 @@ public class MakeOrderDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.make_order_form, container);
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE); //don't show dialog title
+
+        //((Dialog)view).requestWindowFeature(Window.FEATURE_NO_TITLE); //don't show dialog title
         return view;
     }
 }

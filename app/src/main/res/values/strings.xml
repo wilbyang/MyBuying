@@ -25,4 +25,6 @@
     <string name="cancel">Cancel</string>
     <string name="gcm_defaultSenderId" />
     <string name="title_activity_sku_detail">SkuDetailActivity</string>
+    <string name="bottom_sheet_peek">peek</string>
+    <string name="bottom_sheet_content">content</string>
 </resources>
